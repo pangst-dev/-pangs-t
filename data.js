@@ -1,41 +1,71 @@
-// Di fungsi createOrderFromCheckout(), setelah saveCustomerOrder():
-// Simpan ke database master
-PANGSIT_DB.saveOrder(savedOrder);
+// ==================== SISTEM EMAIL NOTIFIKASI ====================
 
-// Di bagian inisialisasi, tambahkan real-time listener:
-window.addEventListener('orderStatusUpdated', function(event) {
-    const { orderId, newStatus } = event.detail;
+// FUNGSI KIRIM EMAIL KE ADMIN
+function kirimNotifikasiPesanan(orderData) {
+    console.log("📧 Mengirim notifikasi pesanan:", orderData.id);
     
-    // Update tampilan customer
-    const orderElement = document.querySelector(`[data-order="${orderId}"]`);
-    if (orderElement) {
-        const statusElement = orderElement.querySelector('.order-status');
-        if (statusElement) {
-            statusElement.className = `order-status ${getStatusClass(newStatus)}`;
-            statusElement.textContent = getStatusText(newStatus);
-            
-            showNotification(`Status pesanan ${orderId} diperbarui: ${getStatusText(newStatus)}`);
-        }
-    }
-});
+    // Data untuk email
+    const subject = `PESANAN BARU - ${orderData.id}`;
+    const body = `
+PESANAN BARU - PANGS!T STORE
+==============================
 
-// Tambahkan polling untuk cek update status
-setInterval(() => {
-    const orders = JSON.parse(localStorage.getItem('customerOrders')) || [];
-    const masterOrders = PANGSIT_DB.getAllOrders();
+📋 ORDER ID: ${orderData.id}
+🕐 WAKTU: ${orderData.date} ${orderData.time}
+
+👤 PELANGGAN
+Nama: ${orderData.customer.name}
+Telepon: ${orderData.customer.phone}
+Email: ${orderData.customer.email || "-"}
+Alamat: ${orderData.customer.address}
+
+💰 TOTAL: Rp ${orderData.total.toLocaleString()}
+
+📦 ITEMS:
+${orderData.products.map(p => `- ${p.name} x${p.quantity} = Rp ${(p.price * p.quantity).toLocaleString()}`).join('\n')}
+
+🔗 LINK ADMIN: ${window.location.origin}/admin-panel.html?order=${orderData.id}
+==============================
+PANGS!T Store
+Jl. Panongan, Tangerang
+📞 0831-9524-3139
+    `;
     
-    orders.forEach(customerOrder => {
-        const masterOrder = masterOrders.find(m => m.id === customerOrder.id);
-        if (masterOrder && masterOrder.status !== customerOrder.status) {
-            customerOrder.status = masterOrder.status;
-            localStorage.setItem('customerOrders', JSON.stringify(orders));
-            renderCustomerOrders(); // Refresh tampilan
-            
-            // Dispatch event untuk update UI
-            const event = new CustomEvent('orderStatusUpdated', {
-                detail: { orderId: customerOrder.id, newStatus: masterOrder.status }
-            });
-            window.dispatchEvent(event);
-        }
+    // Buka email client
+    const mailtoLink = `mailto:muhamadturmuzdi@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(mailtoLink, '_blank');
+    
+    // Tampilkan notifikasi
+    alert("📧 Email notifikasi telah dibuka!\nSilakan kirim ke: muhamadturmuzdi@gmail.com");
+    
+    // Simpan juga untuk riwayat
+    simpanRiwayatNotifikasi(orderData);
+}
+
+// SIMPAN RIWAYAT NOTIFIKASI
+function simpanRiwayatNotifikasi(orderData) {
+    const riwayat = JSON.parse(localStorage.getItem('email_notifications')) || [];
+    riwayat.push({
+        orderId: orderData.id,
+        waktu: new Date().toLocaleString(),
+        status: 'pending'
     });
-}, 10000); // Cek setiap 10 detik
+    localStorage.setItem('email_notifications', JSON.stringify(riwayat));
+}
+
+// ==================== CARA PAKAI ====================
+
+// TEMPATKAN INI SETELAH PESANAN DISIMPAN:
+// Contoh: setelah saveCustomerOrder()
+
+/*
+// DI FUNGSI createOrderFromCheckout() ATAU SEJENISNYA:
+const savedOrder = saveCustomerOrder(orderData);
+
+if (savedOrder) {
+    // KIRIM EMAIL NOTIFIKASI
+    kirimNotifikasiPesanan(savedOrder);
+    
+    // ... kode lainnya ...
+}
+*/
