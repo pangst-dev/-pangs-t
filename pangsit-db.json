@@ -1,0 +1,85 @@
+// File: database/pangsit-db.json
+{
+  "toko_info": {
+    "nama": "PANGS!T TOKO ONLINE",
+    "pemilik": "Siti Rusmi",
+    "telepon": "+62 831-9524-3139",
+    "email": "sitirusmi54@gmail.com",
+    "alamat": "Jl.panongan desa panongan kec panongan kabupaten tangerang",
+    "toko_id": "PANGSIT_001"
+  },
+  
+  "produk": [
+    {
+      "id": 1,
+      "nama": "fire silk wonton",
+      "harga": 20000,
+      "kategori": "pedas",
+      "stok": 50,
+      "gambar": "foto/fire silk wonton.jpg",
+      "deskripsi": "Kesan: lembut, pedas aromatik, classy dengan minyak cabai khas Asia."
+    },
+    {
+      "id": 2,
+      "nama": "crispy melt deluxe",
+      "harga": 13000,
+      "kategori": "original",
+      "stok": 40,
+      "gambar": "foto/crispy melt deluxe.jpg",
+      "deskripsi": "Kesan: garing di luar, lembut & creamy di dalam."
+    },
+    {
+      "id": 3,
+      "nama": "Golden chili crunch",
+      "harga": 15000,
+      "kategori": "pedas",
+      "stok": 35,
+      "gambar": "foto/Golden chili crunch.jpg",
+      "deskripsi": "Kesan: renyah, gurih dengan sentuhan manis-pedas saus khas."
+    },
+    {
+      "id": 4,
+      "nama": "bila bila ayam pangsit",
+      "harga": 10000,
+      "kategori": "ayam isi 4",
+      "stok": 60,
+      "gambar": "foto/bils bila ayam pangsit.jpg",
+      "deskripsi": "Isi ayam lembut dengan bumbu bawang, merica, dan sedikit sayuran."
+    },
+    {
+      "id": 5,
+      "nama": "pangsit kuah mercon",
+      "harga": 20000,
+      "kategori": "pedas",
+      "stok": 45,
+      "gambar": "foto/pangsit kuah mercon.jpg",
+      "deskripsi": "Cocok untuk pangsit kuah. Menggunakan cabai rawit, sambal mercon, dan bumbu pedas gurih."
+    },
+    {
+      "id": 6,
+      "nama": "pangsit isi tahu",
+      "harga": 15000,
+      "kategori": "udang",
+      "stok": 30,
+      "gambar": "foto/pangsit isi tahu.jpg",
+      "deskripsi": "Pangsit goreng dengan isian udang utuh yang segar."
+    }
+  ],
+  
+  "orders": [
+    // Contoh data order akan ditambahkan otomatis
+  ],
+  
+  "customers": [
+    // Data pelanggan akan ditambahkan otomatis
+  ],
+  
+  "settings": {
+    "ongkir": 15000,
+    "pajak": 10,
+    "jam_buka": "10:00",
+    "jam_tutup": "21:00",
+    "metode_bayar": ["QRIS", "GOPAY", "OVO", "DANA", "BCA", "Mandiri", "BNI", "BRI"],
+    "whatsapp_admin": "6283195243139"
+  }
+}
