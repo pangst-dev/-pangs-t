@@ -1,0 +1,7 @@
+// File: database/orders-live.json
+{
+  "last_update": "2025-01-15T10:30:00Z",
+  "total_orders": 0,
+  "today_orders": 0,
+  "orders": []
+}
