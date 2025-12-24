@@ -3,7 +3,7 @@
 Toko online pangsit dengan sistem admin real-time berbasis GitHub Pages.
 
 ## 🚀 Demo
-- Toko Online: `https://[username].github.io/pangsit-toko-online`
+- Toko Online: `https://pangst-dev.github.io/-pangs-t/`
 - Admin Panel: `https://pangst-dev.github.io/admin/`
 
 ## 📱 Fitur Utama
